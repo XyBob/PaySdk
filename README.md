@@ -16,6 +16,7 @@ composer require xytool/pay-sdk
 ```
 
 代码示例
+* 支付宝统一下单
 ```php
 <?php
 require_once './vendor/autoload.php';
@@ -39,3 +40,27 @@ $request->businessParams->subject = '小米手机9黑色陶瓷尊享版'; // 商
 $result = $sdk->execute($request);
 var_dump($result);
 ```
+* 微信企业支付打款到零钱
+
+```php
+<?php
+$params                     = new PublicParams();
+$params->appID = 'wxba553fb498c0ee20';
+$params->mch_id = '1342114701';
+$params->key = 'abcdefghijklmnopqrstuvwxyzrobots';
+
+$params->certPath = './apiclient_cert.pem';
+$params->keyPath = './apiclient_key.pem';
+
+$sdk                        = new sdk($params);
+$request = new \xytool\PaySdk\Weixin\CompanyPay\Weixin\Pay\Request();
+$request->partner_trade_no = 'test' . mt_rand(10000000,99999999); // 订单号
+$request->openid = 'opWUlwsi_2Yy9ScbM9EdSJCxY-QA';
+$request->check_name = 'NO_CHECK';
+$request->amount = 1;
+$request->desc = '测试';
+$request->spbill_create_ip = '127.0.0.1';
+$result = $sdk->execute($request);
+var_dump($result);
+```
+
