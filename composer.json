@@ -1,0 +1,22 @@
+{
+    "name": "xytool/pay-sdk",
+    "description": "a paysdk for phper that is xuyong's first profile",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "xuyong",
+            "email": "782043356@foxmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "yurunsoft/yurun-http": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "xytool\\PaySdk\\": "src/"
+        }
+    }
+
+}
