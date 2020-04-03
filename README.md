@@ -10,6 +10,9 @@
 ### 微信
 * 企业付款到零钱
 
+### 乐刷
+* 乐刷下单
+
 使用方法 
 ```json
 composer require xytool/pay-sdk
