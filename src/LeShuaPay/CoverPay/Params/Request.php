@@ -9,6 +9,12 @@ use \xytool\PaySdk\LeShuaPay\CoverPay\Params\BusinessParams;
  */
 class Request extends LeShuaRequestBase
 {
+
+    /**
+     * 接口名称
+     * @var string
+     */
+    public $_apiMethod = '/cgi-bin/lepos_pay_gateway.cgi';
     /**
      * 接口名称
      * @var string

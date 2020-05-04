@@ -32,11 +32,13 @@ class sdk extends Base
         unset($params['businessParams']);
         $params =  \array_merge(ObjectToArray::parse($businessParams), $params);
         $data = \array_merge(ObjectToArray::parse($this->publicParams), $params);
-
-        unset($data['apiDomain'], $data['appID'], $data['appPrivateKey'], $data['appPrivateKeyFile'], $data['appPublicKey'], $data['appPublicKeyFile'], $data['_syncResponseName'], $data['_method'], $data['_isSyncVerify'], $data['aesKey'], $data['isUseAES'],$data['extend_business_params']);
+       // echo json_encode($this->publicParams);exit;
+        unset($data['sign_type'],$data['_apiMethod'],$data['apiDomain'], $data['appID'], $data['appPrivateKey'], $data['appPrivateKeyFile'], $data['appPublicKey'], $data['appPublicKeyFile'], $data['_syncResponseName'], $data['_method'], $data['_isSyncVerify'], $data['aesKey'], $data['isUseAES'],$data['extend_business_params']);
         $data['sign'] = $this->sign($data);
-        $requestData = $data;
-        $url = $this->publicParams->apiDomain;
+        $requestData = $this->filter_array($data);
+        unset($requestData['key']);
+      //  echo json_encode($requestData);exit;
+        $url = $this->publicParams->apiDomain.$params['_apiMethod'];
     }
 
     /**
@@ -136,10 +138,11 @@ class sdk extends Base
 
 
         foreach ($data as $k => $v){
-            if($v !== '' && $v !== null && !is_array($v)){
+            if($v !== '' && $v !== null && !is_array($v)&&$k!='key'){
                 $content .= $k . '=' . $v . '&';
             }
         }
+        $content .='key='.$data['key'];
         return trim($content, '&');
     }
 
@@ -194,5 +197,21 @@ class sdk extends Base
             return $result['sub_code'];
         }
         return '';
+    }
+
+
+    function filter_array($arr, $values = ['', null, false, 0, '0',[]]) {
+        foreach ($arr as $k => $v) {
+            if (is_array($v) && count($v)>0) {
+                $arr[$k] = $this->filter_array($v, $values);
+            }
+            foreach ($values as $value) {
+                if ($v === $value) {
+                    unset($arr[$k]);
+                    break;
+                }
+            }
+        }
+        return $arr;
     }
 }

@@ -19,10 +19,10 @@ class PublicParams extends PublicBase
      * @var string
      */
     public $merchant_id;
-
+    public $key;
     public $sign_type = 'MD5';
     public function __construct()
     {
-        $this->apiDomain = 'https://paygate.leshuazf.com/cgi-bin/lepos_pay_gateway.cgi';
+        $this->apiDomain = 'https://paygate.leshuazf.com';
     }
 }
