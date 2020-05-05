@@ -49,9 +49,9 @@ var_dump($result);
 ```php
 <?php
 $params                     = new PublicParams();
-$params->appID = 'wxba553fb498c0ee20';
-$params->mch_id = '1342114701';
-$params->key = 'abcdefghijklmnopqrstuvwxyzrobots';
+$params->appID = 'xxx';
+$params->mch_id = 'xxx';
+$params->key = 'xxx';
 
 $params->certPath = './apiclient_cert.pem';
 $params->keyPath = './apiclient_key.pem';
@@ -59,7 +59,7 @@ $params->keyPath = './apiclient_key.pem';
 $sdk                        = new sdk($params);
 $request = new \xytool\PaySdk\Weixin\CompanyPay\Weixin\Pay\Request();
 $request->partner_trade_no = 'test' . mt_rand(10000000,99999999); // 订单号
-$request->openid = 'opWUlwsi_2Yy9ScbM9EdSJCxY-QA';
+$request->openid = 'xxx-QA';
 $request->check_name = 'NO_CHECK';
 $request->amount = 1;
 $request->desc = '测试';
@@ -70,7 +70,7 @@ var_dump($result);
 * 乐刷主扫
 ```php
 $params                     = new PublicParams();
-$params->merchant_id        = '2817115109';
+$params->merchant_id        = 'xxx';
 $sdk                        = new sdk($params);
 $request = new \xytool\PaySdk\LeShuaPay\InitiativePay\Params\Request();
 $params->key = 'xxxxx';
@@ -88,10 +88,10 @@ echo json_encode($result);
 * 乐刷被扫
 ```php
 $params                     = new PublicParams();
-$params->merchant_id        = '2817115109';
+$params->merchant_id        = 'xxx';
 $sdk                        = new sdk($params);
 $request = new \xytool\PaySdk\LeShuaPay\CoverPay\Params\Request();
-$params->key = '586333B94B3DA14C3EFB5C6804898306';
+$params->key = 'xxx';
 $request->notify_url = urlencode('www.baidu.com');
 $request->businessParams->auth_code='12123';
 $request->businessParams->third_order_id=time();
@@ -106,12 +106,12 @@ echo json_encode($result);
 * 乐刷退款
 ```php
 $params                     = new PublicParams();
-$params->merchant_id        = '0419110715';
+$params->merchant_id        = 'xxx';
 $sdk                        = new sdk($params);
 $request = new xytool\PaySdk\LeShuaPay\Refund\Request();
 $request->notify_url = urlencode('www.baidu.com');
 $request->leshua_order_id = '2020042122001483201414331573';
-$params->key = '586333B94B3DA14C3EFB5C6804898306';
+$params->key = 'xxxx';
 $request->merchant_refund_id = time();
 $request->refund_amount = 1;
 $result = $sdk->execute($request);
@@ -122,13 +122,30 @@ var_dump($result);
 * 乐刷查询订单
 ```php
 $params                     = new PublicParams();
-$params->merchant_id        = '2817115109';
+$params->merchant_id        = 'xxx';
 $sdk                        = new sdk($params);
 $request = new xytool\PaySdk\LeShuaPay\Query\Request();
-$params->key = '586333B94B3DA14C3EFB5C6804898306';
+$params->key = 'xxx';
 $request->leshua_order_id = '9000206910920126';
 $result = $sdk->execute($request);
 
 echo json_encode($result);
+```
+
+* 乐刷异步通知
+```php
+    $params              = new PublicParams();
+    $params->merchant_id = 'xxxx';
+    $params->notify_key         = 'xxx';
+    $sdk                 = new sdk($params);
+    $payNotify = new PayNotify;
+try{
+
+    ....dosomething.
+    
+    $sdk->notify($payNotify);
+}catch(Exception $e){
+   echo $e->getMessage();
+}
 ```
 
