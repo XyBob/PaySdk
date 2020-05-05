@@ -21,6 +21,7 @@ class PublicParams extends PublicBase
     public $merchant_id;
     public $key;
     public $sign_type = 'MD5';
+    public $notify_key;
     public function __construct()
     {
         $this->apiDomain = 'https://paygate.leshuazf.com';

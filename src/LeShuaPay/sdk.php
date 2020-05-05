@@ -68,29 +68,20 @@ class sdk extends Base
      */
     public function verifyCallback($data)
     {
-        if(!isset($data['sign'], $data['sign_type']))
+       // echo json_encode($data);exit;
+        if(!isset($data['sign']))
         {
             return false;
         }
-        $signType = $data['sign_type'];
-        unset($data['sign_type']);
-        $content = $this->parseSignData($data);
-        if(empty($this->publicParams->appPublicKeyFile))
-        {
-            $key = $this->publicParams->appPublicKey;
-            $method = 'verifyPublic';
-        }
-        else
-        {
-            $key = $this->publicParams->appPublicKeyFile;
-            $method = 'verifyPublicFromFile';
-        }
+        $signType = $this->publicParams->sign_type;
+        $data['key'] = $this->publicParams->notify_key;
+        unset($data['error_code']);
+        $sign = $data['sign'];
+        $content = $this->parseSignData($data,true);
         switch($signType)
         {
-            case 'RSA':
-                return \xytool\PaySdk\Lib\Encrypt\RSA::$method($content, $key, \base64_decode($data['sign']));
-            case 'RSA2':
-                return \xytool\PaySdk\Lib\Encrypt\RSA2::$method($content, $key, \base64_decode($data['sign']));
+            case 'MD5':
+                return $sign === md5($content);
             default:
                 throw new \Exception('未知的加密方式：' . $signType);
         }
@@ -130,18 +121,26 @@ class sdk extends Base
         }
     }
 
-    public function parseSignData($data)
+    public function parseSignData($data,$null_flag=false)
     {
         unset($data['sign']);
         \ksort($data);
         $content = '';
 
-
-        foreach ($data as $k => $v){
-            if($v !== '' && $v !== null && !is_array($v)&&$k!='key'){
-                $content .= $k . '=' . $v . '&';
+        if($null_flag){//空值参与签名
+            foreach ($data as $k => $v){
+                if($k!='key'){
+                    $content .= $k . '=' . $v . '&';
+                }
+            }
+        }else{
+            foreach ($data as $k => $v){
+                if($v !== '' && $v !== null && !is_array($v)&&$k!='key'){
+                    $content .= $k . '=' . $v . '&';
+                }
             }
         }
+
         $content .='key='.$data['key'];
         return trim($content, '&');
     }
