@@ -140,10 +140,11 @@ echo json_encode($result);
     $sdk                 = new sdk($params);
     $payNotify = new PayNotify;
 try{
-
-    ....dosomething.
-    
     $sdk->notify($payNotify);
+
+    ....dosomething. 
+
+    $payNotify->reply(true, '000000');
 }catch(Exception $e){
    echo $e->getMessage();
 }
