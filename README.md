@@ -17,6 +17,7 @@
 ### 扫呗
 * 扫呗下单
 [文档地址](http://www.lcsw.cn/doc/api/payment.html)
+
 使用方法 
 ```json
 composer require xytool/pay-sdk
