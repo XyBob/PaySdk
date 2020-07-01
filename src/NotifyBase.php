@@ -42,7 +42,7 @@ abstract class NotifyBase
 
 	public function __construct()
 	{
-		
+
 	}
 
 	/**
@@ -54,8 +54,8 @@ abstract class NotifyBase
 		$this->data = $this->getNotifyData();
 		if(!$this->notifyVerify())
 		{
-			$this->reply(false, '通知不合法');
-			throw new \Exception('通知不合法');
+		//	$this->reply(02, '签名失败');
+			throw new \Exception('签名失败');
 		}
 		$this->__exec();
 	}

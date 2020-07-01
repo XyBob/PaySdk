@@ -79,7 +79,9 @@ abstract class Base
 		}		
 		$this->prepareExecute($params, $url, $data);
 		$this->url = $url;
-		$this->response = $this->http->send($url, $this->requestData, $params->_method);
+		//echo json_encode($this->requestData);exit;
+		//echo $url;exit;
+		$this->response = $this->http->send($url, $this->requestData, $params->_method,'json');
 		switch($format)
 		{
 			case 'JSON':
@@ -267,4 +269,14 @@ abstract class Base
 		$notifyHandle->sdk = $this;
 		$notifyHandle->exec();
 	}
+
+	public function array_sort($arr,$sort = [])
+    {
+        $choose_arr = [];
+        foreach ($sort as $k => $v) {
+            $choose_arr[$v] = $arr[$v]??'';
+        }
+        return $choose_arr;
+    }
+
 }
