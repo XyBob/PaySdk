@@ -14,6 +14,9 @@
 * 乐刷下单
 [文档地址](https://www.yuque.com/leshuazf/doc/zhifujiaoyi#n8Uml)
 
+### 扫呗
+* 扫呗下单
+[文档地址](http://www.lcsw.cn/doc/api/payment.html)
 使用方法 
 ```json
 composer require xytool/pay-sdk
