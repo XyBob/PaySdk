@@ -1,5 +1,5 @@
 <?php
-namespace xytool\PaySdk\WeiXin;
+namespace xytool\PaySdk\Weixin;
 
 use xytool\PaySdk\Base;
 use xytool\PaySdk\Lib\XML;
