@@ -76,12 +76,12 @@ abstract class Base
 		if($params->__onExecute($this, $format))
 		{
 			return $this->result;
-		}		
+		}
 		$this->prepareExecute($params, $url, $data);
 		$this->url = $url;
-		//echo json_encode($this->requestData);exit;
-		//echo $url;exit;
-		$this->response = $this->http->send($url, $this->requestData, $params->_method,'json');
+		$this->response = $this->http
+            ->header('Content-Type','application/x-www-form-urlencoded')
+            ->send($url, $this->requestData, $params->_method);
 		switch($format)
 		{
 			case 'JSON':
@@ -168,7 +168,7 @@ abstract class Base
 	 * @return string
 	 */
 	protected abstract function __getErrorCode($result);
-	
+
 	/**
 	 * 检查是否执行成功
 	 * @param array $result
@@ -178,7 +178,7 @@ abstract class Base
 	{
 		return $this->__checkResult(null === $result ? $this->result : $result);
 	}
-	
+
 	/**
 	 * 获取错误信息
 	 * @param array $result
