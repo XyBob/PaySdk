@@ -27,7 +27,7 @@ class Request extends LeShuaRequestBase
      */
     public $notify_url;
 
-
+    public $jump_url;
 
     /**
      * 业务请求参数
