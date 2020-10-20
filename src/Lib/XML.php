@@ -5,6 +5,7 @@ class XML
 {
 	public static function fromString($string)
 	{
+	    $string = str_replace('&','&amp;',$string);
 		// 填补 php <= 5.4 的安全漏洞：https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=23_5
 		// 记录旧值
 		$oldValue = libxml_disable_entity_loader(true);
